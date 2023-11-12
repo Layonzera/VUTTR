@@ -1,0 +1,11 @@
+CREATE DATABASE vuttr;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS tools(
+  id UUID UNIQUE NOT NULL DEFAULT uuid_generate_v4(),
+  title VARCHAR NOT NULL,
+  link VARCHAR NOT NULL,
+  description VARCHAR NOT NULL,
+  tags VARCHAR[]
+);
