@@ -1,0 +1,212 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Developer Tools API",
+    "description": "The application is a simple repository to manage tools with their respective names, links, descriptions and tags.",
+    "contact": {
+      "email": "adryann.layon7@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API"
+    }
+  ],
+  "paths": {
+    "/tools": {
+      "post": {
+        "summary": "Create tools",
+        "description": "This route is responsible for creating tools",
+        "tags": ["Tools"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              },
+              "examples": {
+                "createTool": {
+                  "value": {
+                    "title": "fastify",
+                    "link": "https://www.fastify.io/",
+                    "description": "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+                    "tags": ["web", "framework", "node", "http2", "https", "localhost"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "There are many fields without data!"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List tools",
+        "description": "This route is responsible for listing tools",
+        "tags": ["Tools"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/{id}": {
+      "get": {
+        "description": "Tool search by id",
+        "summary": "Search for a tool by id",
+        "tags": ["Tools"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Search tool ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Tool not found!"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Change tool by id",
+        "summary": "Change a tool by id",
+        "tags": ["Tools"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Tool ID for change",
+            "required": "true"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tool"
+              },
+              "examples": {
+                "createTool": {
+                  "value": {
+                    "title": "node",
+                    "link": "https://nodejs.org/en/",
+                    "description": "Node.js® is an open-source, cross-platform JavaScript runtime environment.",
+                    "tags": ["web", "framework", "node", "localhost"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Tool not found!"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete the tool by id",
+        "summary": "Delete a tool by id",
+        "tags": ["Tools"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Tool ID for deletion",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tool": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
